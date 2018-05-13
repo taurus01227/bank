@@ -1,0 +1,36 @@
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.dll
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.xml
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.exe
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.pdb
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.xml
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\ResolveAssemblyReference.cache
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.dll
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.xml
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.exe
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.pdb
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.xml
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
+C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.dll
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.xml
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.exe
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.pdb
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.xml
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
+C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache

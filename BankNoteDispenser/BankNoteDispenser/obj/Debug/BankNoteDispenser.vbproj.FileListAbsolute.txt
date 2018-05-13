@@ -1,0 +1,22 @@
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.exe
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.pdb
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.xml
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Form1.resources
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Resources.resources
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.vbproj.GenerateResource.Cache
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.exe
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.xml
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.pdb
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.exe
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.xml
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.pdb
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\Debug\Winsock Orcas.dll
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\Debug\Winsock Orcas.xml
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.exe
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.pdb
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.xml
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\ResolveAssemblyReference.cache
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Form1.resources
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Resources.resources
+E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.vbproj.GenerateResource.Cache
