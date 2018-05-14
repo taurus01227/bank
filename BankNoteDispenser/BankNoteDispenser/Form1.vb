@@ -14,10 +14,9 @@
     Public isValidCommCommand As Boolean = False
     Public isWaitingToSend As Boolean = False
 
-    ' ### Manual entry
-    Friend WithEvents Winsock1 As Winsock_Orcas.Winsock
-
-    Public wsRemotAddress As String = "localhost"
+    ' ### WINSOCK CONTROL
+    
+    Public wsRemotAddress As String = "127.0.0.1"
     Public wsRemotePort As Long = 8080
     Public wsPort As Long = 9200
     Public wsStatus As String = ""

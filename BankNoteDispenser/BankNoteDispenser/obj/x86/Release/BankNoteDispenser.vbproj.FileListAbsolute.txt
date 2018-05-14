@@ -22,15 +22,6 @@ C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\Res
 C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
 C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
 C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.dll
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.xml
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.exe
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.pdb
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.xml
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\ResolveAssemblyReference.cache
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
-C:\Users\Taurus\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
