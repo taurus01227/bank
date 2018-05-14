@@ -1,4 +1,8 @@
-﻿Public Class Form1
+﻿Imports System.Net.Sockets
+Imports System.Threading
+Imports System.Text
+
+Public Class Form1
 
     Const ScreenTitle = "Arduino Bank Note Dispenser System"
 
@@ -15,12 +19,47 @@
     Public isWaitingToSend As Boolean = False
 
     ' ### WINSOCK CONTROL
-    
-    Public wsRemotAddress As String = "127.0.0.1"
-    Public wsRemotePort As Long = 8080
-    Public wsPort As Long = 9200
-    Public wsStatus As String = ""
+    Public Enum WinsockStatuses
+        ''' <summary>
+        ''' The Winsock is closed.
+        ''' </summary>
+        Closed = 0
+        ''' <summary>
+        ''' The Winsock is listening (TCP for connections, UDP for data).
+        ''' </summary>
+        Listening = 1
+        ''' <summary>
+        ''' The Winsock is attempting the resolve the remote host.
+        ''' </summary>
+        ResolvingHost = 2
+        ''' <summary>
+        ''' The remote host has been resolved to IP address.
+        ''' </summary>
+        HostResolved = 3
+        ''' <summary>
+        ''' The Winsock is attempting to connect to the remote host.
+        ''' </summary>
+        Connecting = 4
+        ''' <summary>
+        ''' The Winsock is connected to a remote source (client or server).
+        ''' </summary>
+        Connected = 5
+        ''' <summary>
+        ''' The Winsock is attempting to close the connection.
+        ''' </summary>
+        Closing = 6
+    End Enum
 
+    Public tcpClient As TcpClient
+    Public clientStream As NetworkStream
+
+    Public winsockTcp As String = "127.0.0.1"
+    Public winsockPort As Long = 9200
+    Public winsockStatus As WinsockStatuses = WinsockStatuses.Closed
+    Public winsockBuffer As String
+    Public winsockBufferReady As Boolean = False
+
+    ' ### Winsock Client and Server communication protocol ###
     Const wsPrintReceiptButton As String = "R"
     Const wsCancelButton As String = "E"
     Const wsErrorMachine As String = "A"
@@ -53,8 +92,10 @@
     End Sub
     Private Sub Exit_Win()
         closeComport()
-        If Winsock1.State > Winsock_Orcas.WinsockStates.Closed Then
-            Winsock1.Close()
+        If winsockStatus = WinsockStatuses.Connected Then
+            tcpClient.Close()
+        Else
+            winsockStatus = WinsockStatuses.Closing
         End If
         Me.Close()
     End Sub
@@ -376,15 +417,7 @@
         tmr_status.Enabled = True
         isOpenDebugger = False
         Me.Width = 600
-        ' ### WINSOCK
-        Me.Winsock1 = New Winsock_Orcas.Winsock
-        Me.Winsock1.BufferSize = 8192
-        Me.Winsock1.LegacySupport = False
-        Me.Winsock1.LocalPort = wsPort
-        Me.Winsock1.MaxPendingConnections = 1
-        Me.Winsock1.Protocol = Winsock_Orcas.WinsockProtocol.Tcp
-        Me.Winsock1.RemoteHost = wsRemotAddress
-        Me.Winsock1.RemotePort = wsRemotePort
+        
     End Sub
 
     Private Sub BtnOpenCom_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnOpenCom.Click
@@ -458,21 +491,6 @@
         Else
             Status.Text = "Please select comport to establish connection with device"
         End If
-        ' ### WINSOCK
-        If Winsock1.State = Winsock_Orcas.WinsockStates.Connected Or Winsock1.State = Winsock_Orcas.WinsockStates.Connecting Then
-            pngWinSock.Visible = Not pngWinSock.Visible
-        ElseIf Winsock1.State = Winsock_Orcas.WinsockStates.Listening Then
-            pngWinSock.Show()
-            ButtonWinSock.Enabled = True
-            tmr_status.Enabled = False
-            If TextWinsockPending.Text = "not ready" Then
-                TextWinsockPending.Text = ""
-            End If
-        Else
-            ' not ready
-            pngWinSock.Hide()
-            ButtonWinSock.Enabled = False
-        End If
         ' ### DEBUGGER Screen width adjustment
         If isOpenDebugger And Me.Width <= 600 Then
             Me.Width = 1000
@@ -500,8 +518,8 @@
     End Function
 
     Private Sub LogMessage(ByVal val1 As String, ByVal val2 As String)
-        TextLogScreen.AppendText(Now.ToShortDateString)
-        TextLogScreen.AppendText(" " & Now.ToShortTimeString & ":-")
+        TextLogScreen.AppendText(Now.ToString())
+        TextLogScreen.AppendText("> ")
         TextLogScreen.AppendText(" Slot01 Status:")
         TextLogScreen.AppendText(textStatSlot01.Text)
         TextLogScreen.AppendText(" RM:")
@@ -513,10 +531,17 @@
         TextLogScreen.AppendText(vbCrLf)
     End Sub
 
-    Private Sub AppendWinSockStatus(ByVal input As String)
-        wsStatus = input
-        TextWinsockPending.Text = input
-        isWaitingToSend = True
+    Private Sub LogLineMessage(ByVal msg As String)
+        TextLogScreen.AppendText(Now.ToString())
+        TextLogScreen.AppendText("> ")
+        TextLogScreen.AppendText(msg)
+        TextLogScreen.AppendText(vbCrLf)
+    End Sub
+
+    Private Sub LogDataMessage(ByVal msg As String)
+        TextLogScreen.AppendText(Now.ToString())
+        TextLogScreen.AppendText("> ")
+        TextLogScreen.AppendText(msg)
     End Sub
 
     Private Sub tmr_state_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmr_state.Tick
@@ -527,16 +552,15 @@
             Case 1
                 ' ### Wait for step 2
                 tmr_status.Enabled = True
+                LogLineMessage("Comport configure as " & RS232.Text)
                 ' ## Open winsock
-                If Winsock1.State <> Winsock_Orcas.WinsockStates.Listening Then
-                    Winsock1.LocalPort = wsPort
-                    Winsock1.Listen()
-                End If
+                tmr_winsock.Enabled = True ' enable winsock
                 state = 2
             Case 2
                 tmr_state.Interval = 350 ' repeat in short seconds
                 state = 3
             Case 3
+                LogLineMessage("Winsock server start at " & winsockTcp & ":" & winsockPort)
                 state = 4
                 If isDataReceived Then
                     If dataReceived.StartsWith("LABEL") Then
@@ -568,10 +592,7 @@
                             ctext("button - extra")
                         End If
                         isValidCommCommand = True
-                        TextLogScreen.AppendText(Now.ToShortDateString)
-                        TextLogScreen.AppendText(" " & Now.ToShortTimeString & ":-")
-                        TextLogScreen.AppendText(dataReceived)
-                        TextLogScreen.AppendText(vbCrLf)
+                        LogLineMessage(dataReceived)
                     End If
                     If dataReceived.StartsWith("DATA") Then
                         Dim dataArray As String() = dataReceived.Split(",")
@@ -680,14 +701,105 @@
     End Sub
 
 #Region " UI Handlers "
-    Private Sub Winsock1_ConnectionRequest(ByVal sender As System.Object, ByVal e As Winsock_Orcas.WinsockConnectionRequestEventArgs) Handles Winsock1.ConnectionRequest
-        Winsock1.Close()
-        Winsock1.Accept(e.Client)
+
+    Private Sub AppendWinSockStatus(ByVal input As String)
+        TextWinsockPending.Text = input
+        isWaitingToSend = True
+    End Sub
+
+    Private Sub Winsock_ConnectionRequest()
+        Dim listenThread As New Thread(New ThreadStart(AddressOf ListenForClients))
+        winsockStatus = WinsockStatuses.Listening
+        listenThread.Start()
+    End Sub
+
+    Private Sub ListenForClients()
+        ' This method calls the IPAddress.Parse method to check the ipAddress 
+        ' input string. If the ipAddress argument represents a syntatical correct IPv4 or
+        ' IPv6 address, the method displays the Parse output into quad-notation or
+        ' colon-hexadecimal notation, respectively. Otherwise, it displays an 
+        ' error message.
+        Try
+            ' Create an instance of IPAddress for the specified address string (in 
+            ' dotted-quad, or colon-hexadecimal notation).
+            Dim ipAddress As System.Net.IPAddress = System.Net.IPAddress.Parse(winsockTcp)
+            Dim ipLocalEndPoint As New System.Net.IPEndPoint(ipAddress, winsockPort)
+
+            winsockStatus = WinsockStatuses.ResolvingHost
+            Dim serverSocket As System.Net.Sockets.TcpListener = New TcpListener(ipLocalEndPoint)
+
+            winsockStatus = WinsockStatuses.HostResolved
+            serverSocket.Start()
+
+            While True  'blocks until a client has connected to the server
+                Dim client As TcpClient = serverSocket.AcceptTcpClient()
+                Dim clientThread As New Thread(New ParameterizedThreadStart(AddressOf HandleClientComm))
+
+                winsockStatus = WinsockStatuses.Connecting
+                clientThread.Start(client)
+            End While
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub HandleClientComm(ByVal client As Object)
+        tcpClient = DirectCast(client, TcpClient)
+        clientStream = tcpClient.GetStream()
+        winsockStatus = WinsockStatuses.Connected
+
+        Dim message As Byte() = New Byte(4095) {}
+        Dim bytesRead As Integer
+
+        While True
+            bytesRead = 0
+            bytesRead = clientStream.Read(message, 0, 4096) 'blocks until a client sends a message
+
+            If bytesRead = 0 Then
+                Exit While 'the client has disconnected from the server
+            End If
+            ' Encode using ASCII 
+            ' Truncate string as of size of byte read
+            ' Remove line feed
+            winsockBuffer = System.Text.Encoding.ASCII.GetString(message).Substring(0, bytesRead - 1).Replace(Chr(10), "").Replace(Chr(13), "")
+            winsockBufferReady = True
+            If winsockStatus <> WinsockStatuses.Connected Then
+                ' break loop if no longer in connect mode
+                Exit While
+            End If
+        End While
+
+        tcpClient.Close()
+        winsockStatus = WinsockStatuses.Closed
+
+    End Sub
+
+    Private Function Winsock_Get() As String
+        If winsockStatus = WinsockStatuses.Connected Then
+            If winsockBufferReady Then
+                winsockBufferReady = False ' read Winsock once per time
+                Return winsockBuffer
+            End If
+        Else
+            ctext("Unable to get: Winsock server is not connected to any client")
+        End If
+        Return ""
+    End Function
+
+    Private Sub Winsock_Send(ByVal serverResponse As String)
+        Dim encoder As New ASCIIEncoding()
+        Dim sendBytes As [Byte]() = Encoding.ASCII.GetBytes(serverResponse)
+        If winsockStatus = WinsockStatuses.Connected Then
+            clientStream.Write(sendBytes, 0, sendBytes.Length)
+        Else
+            ctext("Unable to send: Winsock server is not connected to any client")
+        End If
     End Sub
 
     Private Sub SendWinSockData()
         If TextWinsockPending.Text <> "" Then
-            Winsock1.Send(TextWinsockPending.Text)
+            Winsock_Send(TextWinsockPending.Text)
             TextWinsockReady.Text = TextWinsockPending.Text
             TextWinsockPending.Text = ""
         End If
@@ -706,7 +818,7 @@
             SendWinSockData()
         Else
             If sData <> "" Then
-                ctext("AUTOPAY REQUEST : " & sData)
+                LogLineMessage("AUTOPAY REQUEST : " & sData)
             End If
         End If
         If sData = "GATEUP" Then
@@ -733,15 +845,52 @@
 
     End Sub
 
-    Private Sub Winsock1_DataArrival(ByVal sender As System.Object, ByVal e As Winsock_Orcas.WinsockDataArrivalEventArgs) Handles Winsock1.DataArrival
-        Dim obj As Object = Winsock1.Get()
-        Dim sData As String
-        If obj.GetType() Is GetType(String) Then
-            sData = CStr(obj)
-            ctext("Client: Data Arrival (" & e.SourceIP & ": " & e.TotalBytes & " bytes) Received: " & sData)
-            ProcessWinSockData(sData)
+    Private Sub tmr_wsListen_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmr_wsListen.Tick
+        ' this is a permanent loop
+        ' code execution will trap within
+        tmr_wsListen.Enabled = False
+        Winsock_ConnectionRequest()
+    End Sub
+
+    Private Sub tmr_winsock_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmr_winsock.Tick
+        If winsockStatus = WinsockStatuses.Closed Then
+            pngWinSock.Hide()
+            ButtonWinSock.Enabled = False
+            ' enable winsock listen()
+            tmr_wsListen.Enabled = True
+            TextWinsockPending.Text = "not ready"
+            Button4.Enabled = False
+        ElseIf winsockStatus = WinsockStatuses.HostResolved Then
+            ' attempt to get client
+            pngWinSock.Visible = Not pngWinSock.Visible
+            TextWinsockPending.Text = "wait for client connection"
+
+        ElseIf winsockStatus = WinsockStatuses.Connected Then
+            tmr_winsock.Interval = 100
+            pngWinSock.Show()
+            ButtonWinSock.Enabled = True
+            Button4.Enabled = True
+            If TextWinsockPending.Text = "wait for client connection" Then
+                TextWinsockPending.Text = ""
+            End If
+            ' attempt to get data
+            If winsockBufferReady Then
+                Dim sData As String = Winsock_Get()
+                ProcessWinSockData(sData)
+            End If
         End If
     End Sub
+
+    Private Sub ButtonWinSock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonWinSock.Click
+        SendWinSockData()
+    End Sub
+
+    Private Sub Button4_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button4.Click
+        If winsockStatus = WinsockStatuses.Connected Then
+            winsockStatus = WinsockStatuses.Closing
+        End If
+    End Sub
+
 #End Region
 
     Private Sub LabelExpand_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LabelExpand.Click
@@ -794,10 +943,5 @@
     Private Sub bOSlot02_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bOSlot02.Click
         textOSlot02.Text = "0"
     End Sub
-
-    Private Sub ButtonWinSock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonWinSock.Click
-        If Winsock1.State = Winsock_Orcas.WinsockStates.Listening Then
-            SendWinSockData()
-        End If
-    End Sub
+    
 End Class

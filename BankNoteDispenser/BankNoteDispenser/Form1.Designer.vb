@@ -61,6 +61,8 @@ Partial Class Form1
         Me.TxtComport = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.TextWinsockReady = New System.Windows.Forms.TextBox
+        Me.ButtonWinSock = New System.Windows.Forms.Button
         Me.pngWinSock = New System.Windows.Forms.PictureBox
         Me.Label3 = New System.Windows.Forms.Label
         Me.TextWinSockResp = New System.Windows.Forms.TextBox
@@ -123,8 +125,9 @@ Partial Class Form1
         Me.LabelExpand = New System.Windows.Forms.Label
         Me.Label25 = New System.Windows.Forms.Label
         Me.Button3 = New System.Windows.Forms.Button
-        Me.ButtonWinSock = New System.Windows.Forms.Button
-        Me.TextWinsockReady = New System.Windows.Forms.TextBox
+        Me.tmr_winsock = New System.Windows.Forms.Timer(Me.components)
+        Me.tmr_wsListen = New System.Windows.Forms.Timer(Me.components)
+        Me.Button4 = New System.Windows.Forms.Button
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -152,14 +155,14 @@ Partial Class Form1
         'RS232
         '
         Me.RS232.Name = "RS232"
-        Me.RS232.Size = New System.Drawing.Size(19, 17)
+        Me.RS232.Size = New System.Drawing.Size(20, 17)
         Me.RS232.Text = "Rx"
         '
         'Status
         '
         Me.Status.ForeColor = System.Drawing.Color.Red
         Me.Status.Name = "Status"
-        Me.Status.Size = New System.Drawing.Size(39, 17)
+        Me.Status.Size = New System.Drawing.Size(38, 17)
         Me.Status.Text = "Status"
         '
         'SerialText
@@ -192,7 +195,7 @@ Partial Class Form1
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ExitToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(35, 20)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'ExitToolStripMenuItem
@@ -205,128 +208,128 @@ Partial Class Form1
         '
         Me.InterfaceToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ConnectToolStripMenuItem, Me.DisconnectToolStripMenuItem})
         Me.InterfaceToolStripMenuItem.Name = "InterfaceToolStripMenuItem"
-        Me.InterfaceToolStripMenuItem.Size = New System.Drawing.Size(65, 20)
+        Me.InterfaceToolStripMenuItem.Size = New System.Drawing.Size(64, 20)
         Me.InterfaceToolStripMenuItem.Text = "Interface"
         '
         'ConnectToolStripMenuItem
         '
         Me.ConnectToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.COM1ToolStripMenuItem, Me.COM2ToolStripMenuItem, Me.COM3ToolStripMenuItem, Me.COM4ToolStripMenuItem, Me.COM5ToolStripMenuItem, Me.COM6ToolStripMenuItem, Me.COM7ToolStripMenuItem, Me.COM8ToolStripMenuItem, Me.COM9ToolStripMenuItem, Me.COM10ToolStripMenuItem, Me.COM11ToolStripMenuItem, Me.COM12ToolStripMenuItem, Me.COM13ToolStripMenuItem, Me.COM14ToolStripMenuItem, Me.COM15ToolStripMenuItem, Me.CUSTOM1ToolStripMenuItem, Me.CUSTOM2ToolStripMenuItem, Me.CUSTOM3ToolStripMenuItem})
         Me.ConnectToolStripMenuItem.Name = "ConnectToolStripMenuItem"
-        Me.ConnectToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.ConnectToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.ConnectToolStripMenuItem.Text = "Connect"
         '
         'COM1ToolStripMenuItem
         '
         Me.COM1ToolStripMenuItem.Name = "COM1ToolStripMenuItem"
-        Me.COM1ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM1ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM1ToolStripMenuItem.Text = "COM1"
         '
         'COM2ToolStripMenuItem
         '
         Me.COM2ToolStripMenuItem.Name = "COM2ToolStripMenuItem"
-        Me.COM2ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM2ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM2ToolStripMenuItem.Text = "COM2"
         '
         'COM3ToolStripMenuItem
         '
         Me.COM3ToolStripMenuItem.Name = "COM3ToolStripMenuItem"
-        Me.COM3ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM3ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM3ToolStripMenuItem.Text = "COM3"
         '
         'COM4ToolStripMenuItem
         '
         Me.COM4ToolStripMenuItem.Name = "COM4ToolStripMenuItem"
-        Me.COM4ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM4ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM4ToolStripMenuItem.Text = "COM4"
         '
         'COM5ToolStripMenuItem
         '
         Me.COM5ToolStripMenuItem.Name = "COM5ToolStripMenuItem"
-        Me.COM5ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM5ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM5ToolStripMenuItem.Text = "COM5"
         '
         'COM6ToolStripMenuItem
         '
         Me.COM6ToolStripMenuItem.Name = "COM6ToolStripMenuItem"
-        Me.COM6ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM6ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM6ToolStripMenuItem.Text = "COM6"
         '
         'COM7ToolStripMenuItem
         '
         Me.COM7ToolStripMenuItem.Name = "COM7ToolStripMenuItem"
-        Me.COM7ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM7ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM7ToolStripMenuItem.Text = "COM7"
         '
         'COM8ToolStripMenuItem
         '
         Me.COM8ToolStripMenuItem.Name = "COM8ToolStripMenuItem"
-        Me.COM8ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM8ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM8ToolStripMenuItem.Text = "COM8"
         '
         'COM9ToolStripMenuItem
         '
         Me.COM9ToolStripMenuItem.Name = "COM9ToolStripMenuItem"
-        Me.COM9ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM9ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM9ToolStripMenuItem.Text = "COM9"
         '
         'COM10ToolStripMenuItem
         '
         Me.COM10ToolStripMenuItem.Name = "COM10ToolStripMenuItem"
-        Me.COM10ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM10ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM10ToolStripMenuItem.Text = "COM10"
         '
         'COM11ToolStripMenuItem
         '
         Me.COM11ToolStripMenuItem.Name = "COM11ToolStripMenuItem"
-        Me.COM11ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM11ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM11ToolStripMenuItem.Text = "COM11"
         '
         'COM12ToolStripMenuItem
         '
         Me.COM12ToolStripMenuItem.Name = "COM12ToolStripMenuItem"
-        Me.COM12ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM12ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM12ToolStripMenuItem.Text = "COM12"
         '
         'COM13ToolStripMenuItem
         '
         Me.COM13ToolStripMenuItem.Name = "COM13ToolStripMenuItem"
-        Me.COM13ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM13ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM13ToolStripMenuItem.Text = "COM13"
         '
         'COM14ToolStripMenuItem
         '
         Me.COM14ToolStripMenuItem.Name = "COM14ToolStripMenuItem"
-        Me.COM14ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM14ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM14ToolStripMenuItem.Text = "COM14"
         '
         'COM15ToolStripMenuItem
         '
         Me.COM15ToolStripMenuItem.Name = "COM15ToolStripMenuItem"
-        Me.COM15ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.COM15ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.COM15ToolStripMenuItem.Text = "COM15"
         '
         'CUSTOM1ToolStripMenuItem
         '
         Me.CUSTOM1ToolStripMenuItem.Name = "CUSTOM1ToolStripMenuItem"
-        Me.CUSTOM1ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.CUSTOM1ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.CUSTOM1ToolStripMenuItem.Text = "CUSTOM1"
         '
         'CUSTOM2ToolStripMenuItem
         '
         Me.CUSTOM2ToolStripMenuItem.Name = "CUSTOM2ToolStripMenuItem"
-        Me.CUSTOM2ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.CUSTOM2ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.CUSTOM2ToolStripMenuItem.Text = "CUSTOM2"
         '
         'CUSTOM3ToolStripMenuItem
         '
         Me.CUSTOM3ToolStripMenuItem.Name = "CUSTOM3ToolStripMenuItem"
-        Me.CUSTOM3ToolStripMenuItem.Size = New System.Drawing.Size(129, 22)
+        Me.CUSTOM3ToolStripMenuItem.Size = New System.Drawing.Size(122, 22)
         Me.CUSTOM3ToolStripMenuItem.Text = "CUSTOM3"
         '
         'DisconnectToolStripMenuItem
         '
         Me.DisconnectToolStripMenuItem.Name = "DisconnectToolStripMenuItem"
-        Me.DisconnectToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
+        Me.DisconnectToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
         Me.DisconnectToolStripMenuItem.Text = "Disconnect"
         '
         'GroupBox1
@@ -379,6 +382,7 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.Button4)
         Me.GroupBox2.Controls.Add(Me.TextWinsockReady)
         Me.GroupBox2.Controls.Add(Me.ButtonWinSock)
         Me.GroupBox2.Controls.Add(Me.pngWinSock)
@@ -393,10 +397,28 @@ Partial Class Form1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Step 2"
         '
+        'TextWinsockReady
+        '
+        Me.TextWinsockReady.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextWinsockReady.Location = New System.Drawing.Point(61, 42)
+        Me.TextWinsockReady.Name = "TextWinsockReady"
+        Me.TextWinsockReady.ReadOnly = True
+        Me.TextWinsockReady.Size = New System.Drawing.Size(128, 20)
+        Me.TextWinsockReady.TabIndex = 8
+        '
+        'ButtonWinSock
+        '
+        Me.ButtonWinSock.Location = New System.Drawing.Point(196, 13)
+        Me.ButtonWinSock.Name = "ButtonWinSock"
+        Me.ButtonWinSock.Size = New System.Drawing.Size(68, 23)
+        Me.ButtonWinSock.TabIndex = 7
+        Me.ButtonWinSock.Text = "Send"
+        Me.ButtonWinSock.UseVisualStyleBackColor = True
+        '
         'pngWinSock
         '
         Me.pngWinSock.Image = CType(resources.GetObject("pngWinSock.Image"), System.Drawing.Image)
-        Me.pngWinSock.Location = New System.Drawing.Point(265, 16)
+        Me.pngWinSock.Location = New System.Drawing.Point(297, 15)
         Me.pngWinSock.Name = "pngWinSock"
         Me.pngWinSock.Size = New System.Drawing.Size(17, 20)
         Me.pngWinSock.TabIndex = 6
@@ -407,7 +429,7 @@ Partial Class Form1
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(6, 61)
+        Me.Label3.Location = New System.Drawing.Point(6, 71)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(38, 13)
         Me.Label3.TabIndex = 5
@@ -416,12 +438,12 @@ Partial Class Form1
         'TextWinSockResp
         '
         Me.TextWinSockResp.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextWinSockResp.Location = New System.Drawing.Point(61, 61)
+        Me.TextWinSockResp.Location = New System.Drawing.Point(61, 68)
         Me.TextWinSockResp.Multiline = True
         Me.TextWinSockResp.Name = "TextWinSockResp"
         Me.TextWinSockResp.ReadOnly = True
         Me.TextWinSockResp.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextWinSockResp.Size = New System.Drawing.Size(221, 33)
+        Me.TextWinSockResp.Size = New System.Drawing.Size(230, 26)
         Me.TextWinSockResp.TabIndex = 4
         '
         'TextWinsockPending
@@ -429,7 +451,7 @@ Partial Class Form1
         Me.TextWinsockPending.BackColor = System.Drawing.Color.White
         Me.TextWinsockPending.Location = New System.Drawing.Point(61, 16)
         Me.TextWinsockPending.Name = "TextWinsockPending"
-        Me.TextWinsockPending.Size = New System.Drawing.Size(101, 20)
+        Me.TextWinsockPending.Size = New System.Drawing.Size(129, 20)
         Me.TextWinsockPending.TabIndex = 2
         Me.TextWinsockPending.Text = "not ready"
         '
@@ -1003,23 +1025,22 @@ Partial Class Form1
         Me.Button3.Text = "X"
         Me.Button3.UseVisualStyleBackColor = True
         '
-        'ButtonWinSock
+        'tmr_winsock
         '
-        Me.ButtonWinSock.Location = New System.Drawing.Point(168, 14)
-        Me.ButtonWinSock.Name = "ButtonWinSock"
-        Me.ButtonWinSock.Size = New System.Drawing.Size(88, 23)
-        Me.ButtonWinSock.TabIndex = 7
-        Me.ButtonWinSock.Text = "Send"
-        Me.ButtonWinSock.UseVisualStyleBackColor = True
+        Me.tmr_winsock.Interval = 500
         '
-        'TextWinsockReady
+        'tmr_wsListen
         '
-        Me.TextWinsockReady.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextWinsockReady.Location = New System.Drawing.Point(62, 35)
-        Me.TextWinsockReady.Name = "TextWinsockReady"
-        Me.TextWinsockReady.ReadOnly = True
-        Me.TextWinsockReady.Size = New System.Drawing.Size(101, 20)
-        Me.TextWinsockReady.TabIndex = 8
+        '
+        'Button4
+        '
+        Me.Button4.Location = New System.Drawing.Point(265, 13)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(26, 23)
+        Me.Button4.TabIndex = 9
+        Me.Button4.Text = "X"
+        Me.ToolTip1.SetToolTip(Me.Button4, "Disconnect")
+        Me.Button4.UseVisualStyleBackColor = True
         '
         'Form1
         '
@@ -1174,4 +1195,7 @@ Partial Class Form1
     Friend WithEvents bAmtSlot01 As System.Windows.Forms.Button
     Friend WithEvents ButtonWinSock As System.Windows.Forms.Button
     Friend WithEvents TextWinsockReady As System.Windows.Forms.TextBox
+    Friend WithEvents tmr_winsock As System.Windows.Forms.Timer
+    Friend WithEvents tmr_wsListen As System.Windows.Forms.Timer
+    Friend WithEvents Button4 As System.Windows.Forms.Button
 End Class

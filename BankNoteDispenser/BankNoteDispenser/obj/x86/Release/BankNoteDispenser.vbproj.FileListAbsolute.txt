@@ -25,3 +25,14 @@ C:\Users\Charles\Desktop\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\Ban
 E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
 E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
 E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.exe
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.pdb
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.xml
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\Winsock Orcas.xml
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
+C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache

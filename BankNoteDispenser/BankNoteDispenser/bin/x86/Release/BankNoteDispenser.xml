@@ -6,6 +6,34 @@ BankNoteDispenser
 </name>
 </assembly>
 <members>
-
+<member name="F:BankNoteDispenser.Form1.WinsockStatuses.Closed">
+	<summary>
+ The Winsock is closed.
+ </summary>
+</member><member name="F:BankNoteDispenser.Form1.WinsockStatuses.Listening">
+	<summary>
+ The Winsock is listening (TCP for connections, UDP for data).
+ </summary>
+</member><member name="F:BankNoteDispenser.Form1.WinsockStatuses.ResolvingHost">
+	<summary>
+ The Winsock is attempting the resolve the remote host.
+ </summary>
+</member><member name="F:BankNoteDispenser.Form1.WinsockStatuses.HostResolved">
+	<summary>
+ The remote host has been resolved to IP address.
+ </summary>
+</member><member name="F:BankNoteDispenser.Form1.WinsockStatuses.Connecting">
+	<summary>
+ The Winsock is attempting to connect to the remote host.
+ </summary>
+</member><member name="F:BankNoteDispenser.Form1.WinsockStatuses.Connected">
+	<summary>
+ The Winsock is connected to a remote source (client or server).
+ </summary>
+</member><member name="F:BankNoteDispenser.Form1.WinsockStatuses.Closing">
+	<summary>
+ The Winsock is attempting to close the connection.
+ </summary>
+</member>
 </members>
 </doc>

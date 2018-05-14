@@ -118,39 +118,46 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="StatusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>546, 17</value>
+    <value>131, 17</value>
   </metadata>
   <metadata name="tmr_state.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>658, 17</value>
+    <value>243, 17</value>
   </metadata>
   <metadata name="SerialPort1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>111, 54</value>
+    <value>436, 17</value>
   </metadata>
   <metadata name="tmr_status.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>216, 54</value>
+    <value>541, 17</value>
   </metadata>
   <metadata name="MenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>321, 54</value>
+    <value>646, 17</value>
+  </metadata>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>342, 17</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="pngWinSock.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         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
-        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
+        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
+        PLq9mt/aj66m3fC2uAAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+  <metadata name="tmr_winsock.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="tmr_wsListen.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 54</value>
   </metadata>
 </root>
