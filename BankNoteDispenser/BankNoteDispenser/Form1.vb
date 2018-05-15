@@ -60,6 +60,7 @@ Public Class Form1
     Public winsockBufferReady As Boolean = False
 
     ' ### Winsock Client and Server communication protocol ###
+    Const wsEndStringPhp As String = "F"
     Const wsPrintReceiptButton As String = "R"
     Const wsCancelButton As String = "E"
     Const wsErrorMachine As String = "A"
@@ -657,6 +658,7 @@ Public Class Form1
                 End If
                 If isWaitingToSend Then
                     SendWinSockData()
+                    isWaitingToSend = False
                 End If
         End Select
     End Sub
@@ -704,7 +706,8 @@ Public Class Form1
 
     Private Sub AppendWinSockStatus(ByVal input As String)
         TextWinsockPending.Text = input
-        isWaitingToSend = True
+        ' ### enabled auto-send ?
+        'isWaitingToSend = True
     End Sub
 
     Private Sub Winsock_ConnectionRequest()
@@ -752,24 +755,29 @@ Public Class Form1
         Dim message As Byte() = New Byte(4095) {}
         Dim bytesRead As Integer
 
-        While True
-            bytesRead = 0
-            bytesRead = clientStream.Read(message, 0, 4096) 'blocks until a client sends a message
+        Try
+            While True
+                bytesRead = 0
+                bytesRead = clientStream.Read(message, 0, 4096) 'blocks until a client sends a message
 
-            If bytesRead = 0 Then
-                Exit While 'the client has disconnected from the server
-            End If
-            ' Encode using ASCII 
-            ' Truncate string as of size of byte read
-            ' Remove line feed
-            winsockBuffer = System.Text.Encoding.ASCII.GetString(message).Substring(0, bytesRead - 1).Replace(Chr(10), "").Replace(Chr(13), "")
-            winsockBufferReady = True
-            If winsockStatus <> WinsockStatuses.Connected Then
-                ' break loop if no longer in connect mode
-                Exit While
-            End If
-        End While
+                If bytesRead = 0 Then
+                    Exit While 'the client has disconnected from the server
+                End If
+                ' Encode using ASCII 
+                ' Truncate string as of size of byte read
+                ' Remove line feed
+                winsockBuffer = System.Text.Encoding.ASCII.GetString(message).Substring(0, bytesRead).Replace(Chr(10), "").Replace(Chr(13), "").TrimEnd
+                winsockBufferReady = True
+                If winsockStatus <> WinsockStatuses.Connected Then
+                    ' break loop if no longer in connect mode
+                    Exit While
+                End If
+            End While
 
+        Catch ex As Exception
+
+        End Try
+        
         tcpClient.Close()
         winsockStatus = WinsockStatuses.Closed
 
@@ -799,7 +807,7 @@ Public Class Form1
 
     Private Sub SendWinSockData()
         If TextWinsockPending.Text <> "" Then
-            Winsock_Send(TextWinsockPending.Text)
+            Winsock_Send(TextWinsockPending.Text & wsEndStringPhp) 'each message is end with "F", user-defined protocol
             TextWinsockReady.Text = TextWinsockPending.Text
             TextWinsockPending.Text = ""
         End If
