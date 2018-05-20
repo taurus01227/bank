@@ -61,6 +61,7 @@ Partial Class Form1
         Me.TxtComport = New System.Windows.Forms.TextBox
         Me.Label1 = New System.Windows.Forms.Label
         Me.GroupBox2 = New System.Windows.Forms.GroupBox
+        Me.TextCount = New System.Windows.Forms.TextBox
         Me.Button4 = New System.Windows.Forms.Button
         Me.TextWinsockReady = New System.Windows.Forms.TextBox
         Me.ButtonWinSock = New System.Windows.Forms.Button
@@ -128,7 +129,6 @@ Partial Class Form1
         Me.Button3 = New System.Windows.Forms.Button
         Me.tmr_winsock = New System.Windows.Forms.Timer(Me.components)
         Me.tmr_wsListen = New System.Windows.Forms.Timer(Me.components)
-        Me.TextCount = New System.Windows.Forms.TextBox
         Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -398,6 +398,15 @@ Partial Class Form1
         Me.GroupBox2.TabIndex = 86
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Step 2"
+        '
+        'TextCount
+        '
+        Me.TextCount.BackColor = System.Drawing.SystemColors.InactiveCaption
+        Me.TextCount.Location = New System.Drawing.Point(196, 42)
+        Me.TextCount.Name = "TextCount"
+        Me.TextCount.ReadOnly = True
+        Me.TextCount.Size = New System.Drawing.Size(95, 20)
+        Me.TextCount.TabIndex = 10
         '
         'Button4
         '
@@ -1039,18 +1048,10 @@ Partial Class Form1
         '
         'tmr_winsock
         '
+        Me.tmr_winsock.Interval = 200
         '
         'tmr_wsListen
         '
-        '
-        'TextCount
-        '
-        Me.TextCount.BackColor = System.Drawing.SystemColors.InactiveCaption
-        Me.TextCount.Location = New System.Drawing.Point(196, 42)
-        Me.TextCount.Name = "TextCount"
-        Me.TextCount.ReadOnly = True
-        Me.TextCount.Size = New System.Drawing.Size(95, 20)
-        Me.TextCount.TabIndex = 10
         '
         'Form1
         '

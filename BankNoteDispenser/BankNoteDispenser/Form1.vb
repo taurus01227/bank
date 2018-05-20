@@ -6,7 +6,6 @@ Public Class Form1
 
     Const ScreenTitle = "Arduino Bank Note Dispenser System"
 
-
     Public state As Integer = 0
     Public dataReceived As String  ' temp buffer
     Public isDataReceived As Boolean = False
@@ -573,7 +572,7 @@ Public Class Form1
                 End If
             Case 4
                 ctext("Hardware Linked")
-                tmr_state.Interval = 10 ' repeat in short seconds
+                tmr_state.Interval = 100 ' repeat in short seconds
                 state = 5
             Case 5
                 If isSendSerialData Then
@@ -782,19 +781,15 @@ Public Class Form1
 
         End Try
         
-        tcpClient.Close()
-        winsockStatus = WinsockStatuses.Closed
+        winsockStatus = WinsockStatuses.Closing
+
 
     End Sub
 
     Private Function Winsock_Get() As String
-        If winsockStatus = WinsockStatuses.Connected Then
-            If winsockBufferReady Then
-                winsockBufferReady = False ' read Winsock once per time
-                Return winsockBuffer
-            End If
-        Else
-            ctext("Unable to get: Winsock server is not connected to any client")
+        If winsockBufferReady Then
+            winsockBufferReady = False ' read Winsock once per time
+            Return winsockBuffer
         End If
         Return ""
     End Function
@@ -830,7 +825,7 @@ Public Class Form1
         'isWaitingToSend 
         TextWinSockResp.Text = sData
         If sData = "btn_status" Then
-            SendWinSockData() ' every request must response, if no data to send , send end string F instead
+            isWaitingToSend = True ' every request must response, if no data to send , send end string F instead
         Else
             If sData <> "" Then
                 LogLineMessage("AUTOPAY REQUEST : " & sData)
@@ -868,6 +863,17 @@ Public Class Form1
     End Sub
 
     Private Sub tmr_winsock_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmr_winsock.Tick
+        ' attempt to get data
+        If winsockBufferReady Then
+            winsockStatus = WinsockStatuses.Connected
+            Dim sData As String = Winsock_Get()
+            If TextWinsockPending.Text = "wait for client connection" Then
+                TextWinsockPending.Text = ""
+            End If
+            ProcessWinSockData(sData)
+            TextCount.Text = receivedCount
+            winsockStatus = WinsockStatuses.Closing
+        End If
         If winsockStatus = WinsockStatuses.Closed Then
             pngWinSock.Hide()
             ButtonWinSock.Enabled = False
@@ -875,6 +881,7 @@ Public Class Form1
             tmr_wsListen.Enabled = True
             If Not isEstablished Then TextWinsockPending.Text = "not ready"
             Button4.Enabled = False
+
         ElseIf winsockStatus = WinsockStatuses.HostResolved Then
             ' attempt to get client
             pngWinSock.Visible = Not pngWinSock.Visible
@@ -884,16 +891,13 @@ Public Class Form1
             pngWinSock.Show()
             ButtonWinSock.Enabled = True
             Button4.Enabled = True
-            If TextWinsockPending.Text = "wait for client connection" Then
-                TextWinsockPending.Text = ""
-            End If
+
+        ElseIf winsockStatus = WinsockStatuses.Closing Then
+            tcpClient.Close()
+            winsockStatus = WinsockStatuses.Closed
+
         End If
-        ' attempt to get data
-        If winsockBufferReady Then
-            Dim sData As String = Winsock_Get()
-            ProcessWinSockData(sData)
-            TextCount.Text = receivedCount
-        End If
+        
     End Sub
 
     Private Sub ButtonWinSock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonWinSock.Click
