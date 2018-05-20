@@ -52,6 +52,8 @@ Public Class Form1
 
     Public tcpClient As TcpClient
     Public clientStream As NetworkStream
+    Public isEstablished As Boolean = False
+    Public receivedCount As Integer = 0
 
     Public winsockTcp As String = "127.0.0.1"
     Public winsockPort As Long = 9200
@@ -757,9 +759,10 @@ Public Class Form1
 
         Try
             While True
+                isEstablished = True
                 bytesRead = 0
                 bytesRead = clientStream.Read(message, 0, 4096) 'blocks until a client sends a message
-
+                receivedCount = receivedCount + 1
                 If bytesRead = 0 Then
                     Exit While 'the client has disconnected from the server
                 End If
@@ -768,8 +771,9 @@ Public Class Form1
                 ' Remove line feed
                 winsockBuffer = System.Text.Encoding.ASCII.GetString(message).Substring(0, bytesRead).Replace(Chr(10), "").Replace(Chr(13), "").TrimEnd
                 winsockBufferReady = True
-                If winsockStatus <> WinsockStatuses.Connected Then
+                If winsockStatus <> WinsockStatuses.Connected Or winsockStatus <> WinsockStatuses.Connecting Then
                     ' break loop if no longer in connect mode
+                    ' allow listening (connecting without client/server, broadcasting)
                     Exit While
                 End If
             End While
@@ -869,26 +873,26 @@ Public Class Form1
             ButtonWinSock.Enabled = False
             ' enable winsock listen()
             tmr_wsListen.Enabled = True
-            TextWinsockPending.Text = "not ready"
+            If Not isEstablished Then TextWinsockPending.Text = "not ready"
             Button4.Enabled = False
         ElseIf winsockStatus = WinsockStatuses.HostResolved Then
             ' attempt to get client
             pngWinSock.Visible = Not pngWinSock.Visible
-            TextWinsockPending.Text = "wait for client connection"
+            If Not isEstablished Then TextWinsockPending.Text = "wait for client connection"
 
         ElseIf winsockStatus = WinsockStatuses.Connected Then
-            tmr_winsock.Interval = 100
             pngWinSock.Show()
             ButtonWinSock.Enabled = True
             Button4.Enabled = True
             If TextWinsockPending.Text = "wait for client connection" Then
                 TextWinsockPending.Text = ""
             End If
-            ' attempt to get data
-            If winsockBufferReady Then
-                Dim sData As String = Winsock_Get()
-                ProcessWinSockData(sData)
-            End If
+        End If
+        ' attempt to get data
+        If winsockBufferReady Then
+            Dim sData As String = Winsock_Get()
+            ProcessWinSockData(sData)
+            TextCount.Text = receivedCount
         End If
     End Sub
 
