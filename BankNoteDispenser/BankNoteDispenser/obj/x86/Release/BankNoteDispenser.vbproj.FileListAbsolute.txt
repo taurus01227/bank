@@ -36,3 +36,10 @@ C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\
 C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
 C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
 C:\Documents and Settings\CHARLES-01\Desktop\vb.net\bank-test\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.exe
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.pdb
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.xml
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\ResolveAssemblyReference.cache
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
+E:\Github\vb\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache

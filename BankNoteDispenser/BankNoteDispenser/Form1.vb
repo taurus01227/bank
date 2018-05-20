@@ -61,7 +61,7 @@ Public Class Form1
 
     ' ### Winsock Client and Server communication protocol ###
     Const wsEndStringPhp As String = "F"
-    Const wsPrintReceiptButton As String = "R"
+    Const wsPrintReceiptButton As String = "D"
     Const wsCancelButton As String = "E"
     Const wsErrorMachine As String = "A"
     Const wsEmptyMachine As String = "L"
@@ -807,9 +807,12 @@ Public Class Form1
 
     Private Sub SendWinSockData()
         If TextWinsockPending.Text <> "" Then
-            Winsock_Send(TextWinsockPending.Text & wsEndStringPhp) 'each message is end with "F", user-defined protocol
+            Winsock_Send(TextWinsockPending.Text)
             TextWinsockReady.Text = TextWinsockPending.Text
             TextWinsockPending.Text = ""
+        Else
+            Winsock_Send(wsEndStringPhp) 'each message is end with "F", user-defined protocol
+            TextWinsockReady.Text = wsEndStringPhp
         End If
     End Sub
 
@@ -823,7 +826,7 @@ Public Class Form1
         'isWaitingToSend 
         TextWinSockResp.Text = sData
         If sData = "btn_status" Then
-            SendWinSockData()
+            SendWinSockData() ' every request must response, if no data to send , send end string F instead
         Else
             If sData <> "" Then
                 LogLineMessage("AUTOPAY REQUEST : " & sData)
