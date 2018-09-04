@@ -20,3 +20,6 @@ E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDisp
 E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Form1.resources
 E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Resources.resources
 E:\PERSONAL\Documents\Visual Studio 2008\Projects\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.vbproj.GenerateResource.Cache
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.exe
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.xml
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.pdb

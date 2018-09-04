@@ -53,3 +53,13 @@ C:\Users\Taurus\Documents\BankNoteDispenser2018\New folder\BankNoteDispenser\Ban
 C:\Users\Taurus\Documents\BankNoteDispenser2018\New folder\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
 C:\Users\Taurus\Documents\BankNoteDispenser2018\New folder\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
 C:\Users\Taurus\Documents\BankNoteDispenser2018\New folder\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.exe
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.xml
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.pdb
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.exe
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.pdb
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\x86\Release\BankNoteDispenser.xml
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\ResolveAssemblyReference.cache
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Form1.resources
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.Resources.resources
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\x86\Release\BankNoteDispenser.vbproj.GenerateResource.Cache

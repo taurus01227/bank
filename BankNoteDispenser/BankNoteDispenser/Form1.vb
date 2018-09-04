@@ -262,6 +262,7 @@ Public Class Form1
 
     Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         closeComport()
+        Environment.Exit(1)
     End Sub
 
     Private Sub GetComport()
@@ -657,10 +658,7 @@ Public Class Form1
                     isDataReceived = False ' process data onetime only
                     isValidCommCommand = False
                 End If
-                If isWaitingToSend Then
-                    SendWinSockData()
-                    isWaitingToSend = False
-                End If
+                
         End Select
     End Sub
 
@@ -715,6 +713,10 @@ Public Class Form1
         Dim listenThread As New Thread(New ThreadStart(AddressOf ListenForClients))
         winsockStatus = WinsockStatuses.Listening
         listenThread.Start()
+
+        'LogLineMessage("Winsock_ConnectionRequest::winsockStatus: " & winsockStatus)
+        'LogLineMessage("Winsock_ConnectionRequest::winsockStatus...")
+
     End Sub
 
     Private Sub ListenForClients()
@@ -723,6 +725,10 @@ Public Class Form1
         ' IPv6 address, the method displays the Parse output into quad-notation or
         ' colon-hexadecimal notation, respectively. Otherwise, it displays an 
         ' error message.
+
+        'LogLineMessage("ListenForClients::winsockStatus: " & winsockStatus)
+        'LogLineMessage("ListenForClients::winsockStatus 1... ")
+
         Try
             ' Create an instance of IPAddress for the specified address string (in 
             ' dotted-quad, or colon-hexadecimal notation).
@@ -735,6 +741,9 @@ Public Class Form1
             winsockStatus = WinsockStatuses.HostResolved
             serverSocket.Start()
 
+            'LogLineMessage("ListenForClients::winsockStatus start: " & winsockStatus)
+            'LogLineMessage("ListenForClients::winsockStatus 2... ")
+
             While True  'blocks until a client has connected to the server
                 Dim client As TcpClient = serverSocket.AcceptTcpClient()
                 Dim clientThread As New Thread(New ParameterizedThreadStart(AddressOf HandleClientComm))
@@ -744,6 +753,8 @@ Public Class Form1
             End While
 
         Catch ex As Exception
+
+            'LogLineMessage("ListenForClients::winsockStatus Exception: " & winsockStatus)
 
         End Try
     End Sub
@@ -755,6 +766,8 @@ Public Class Form1
 
         Dim message As Byte() = New Byte(4095) {}
         Dim bytesRead As Integer
+
+        'LogLineMessage("HandleClientComm::winsockStatus start: " & winsockStatus)
 
         Try
             While True
@@ -800,7 +813,7 @@ Public Class Form1
         If winsockStatus = WinsockStatuses.Connected Then
             clientStream.Write(sendBytes, 0, sendBytes.Length)
         Else
-            ctext("Unable to send: Winsock server is not connected to any client")
+            LogLineMessage("Unable to send: Winsock server is not connected to any client")
         End If
     End Sub
 
@@ -826,6 +839,7 @@ Public Class Form1
         TextWinSockResp.Text = sData
         If sData = "btn_status" Then
             isWaitingToSend = True ' every request must response, if no data to send , send end string F instead
+            ButtonWinSock.Enabled = True
         Else
             If sData <> "" Then
                 LogLineMessage("AUTOPAY REQUEST : " & sData)
@@ -863,6 +877,7 @@ Public Class Form1
     End Sub
 
     Private Sub tmr_winsock_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmr_winsock.Tick
+
         ' attempt to get data
         If winsockBufferReady Then
             winsockStatus = WinsockStatuses.Connected
@@ -872,8 +887,9 @@ Public Class Form1
             End If
             ProcessWinSockData(sData)
             TextCount.Text = receivedCount
-            winsockStatus = WinsockStatuses.Closing
+
         End If
+
         If winsockStatus = WinsockStatuses.Closed Then
             pngWinSock.Hide()
             ButtonWinSock.Enabled = False
@@ -897,7 +913,16 @@ Public Class Form1
             winsockStatus = WinsockStatuses.Closed
 
         End If
-        
+        ' nothing to send then close winsock
+        If winsockStatus = WinsockStatuses.Connected Then
+            If isWaitingToSend Then
+                SendWinSockData()
+                isWaitingToSend = False
+            Else
+                winsockStatus = WinsockStatuses.Closing
+            End If
+        End If
+
     End Sub
 
     Private Sub ButtonWinSock_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonWinSock.Click
