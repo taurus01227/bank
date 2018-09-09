@@ -1,0 +1,14 @@
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\Release\BankNoteDispenser.exe.manifest
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\Release\BankNoteDispenser.application
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\Release\BankNoteDispenser.exe
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\Release\BankNoteDispenser.pdb
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\Release\BankNoteDispenser.xml
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.Form1.resources
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.Resources.resources
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.vbproj.GenerateResource.Cache
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.exe.manifest
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.application
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.exe
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.xml
+C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Release\BankNoteDispenser.pdb

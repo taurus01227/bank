@@ -55,6 +55,10 @@ Partial Class Form1
         Me.CUSTOM2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.CUSTOM3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.DisconnectToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.WindowsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.PrinterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.DefaultToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
+        Me.CompanyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
         Me.GroupBox1 = New System.Windows.Forms.GroupBox
         Me.BtnCloseCom = New System.Windows.Forms.Button
         Me.BtnOpenCom = New System.Windows.Forms.Button
@@ -108,11 +112,19 @@ Partial Class Form1
         Me.Label13 = New System.Windows.Forms.Label
         Me.Label5 = New System.Windows.Forms.Label
         Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.BUTTON_SPARE = New System.Windows.Forms.Button
         Me.BUTTON_CANCEL = New System.Windows.Forms.Button
         Me.BUTTON_RECEIPT = New System.Windows.Forms.Button
         Me.Label4 = New System.Windows.Forms.Label
+        Me.Button5 = New System.Windows.Forms.Button
         Me.GroupBox5 = New System.Windows.Forms.GroupBox
+        Me.textAddress03 = New System.Windows.Forms.TextBox
+        Me.textAddress02 = New System.Windows.Forms.TextBox
+        Me.textContact = New System.Windows.Forms.TextBox
+        Me.textAddress01 = New System.Windows.Forms.TextBox
+        Me.textCompanyName = New System.Windows.Forms.TextBox
+        Me.textSiteName = New System.Windows.Forms.TextBox
+        Me.textMachineName = New System.Windows.Forms.TextBox
+        Me.Label26 = New System.Windows.Forms.Label
         Me.textSerialReceived = New System.Windows.Forms.TextBox
         Me.Label24 = New System.Windows.Forms.Label
         Me.Label23 = New System.Windows.Forms.Label
@@ -185,7 +197,7 @@ Partial Class Form1
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.InterfaceToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.InterfaceToolStripMenuItem, Me.WindowsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(992, 24)
@@ -332,6 +344,35 @@ Partial Class Form1
         Me.DisconnectToolStripMenuItem.Name = "DisconnectToolStripMenuItem"
         Me.DisconnectToolStripMenuItem.Size = New System.Drawing.Size(133, 22)
         Me.DisconnectToolStripMenuItem.Text = "Disconnect"
+        '
+        'WindowsToolStripMenuItem
+        '
+        Me.WindowsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PrinterToolStripMenuItem, Me.CompanyToolStripMenuItem})
+        Me.WindowsToolStripMenuItem.Name = "WindowsToolStripMenuItem"
+        Me.WindowsToolStripMenuItem.Size = New System.Drawing.Size(56, 20)
+        Me.WindowsToolStripMenuItem.Text = "Setting"
+        '
+        'PrinterToolStripMenuItem
+        '
+        Me.PrinterToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.DefaultToolStripMenuItem})
+        Me.PrinterToolStripMenuItem.Name = "PrinterToolStripMenuItem"
+        Me.PrinterToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.PrinterToolStripMenuItem.Text = "Printer"
+        '
+        'DefaultToolStripMenuItem
+        '
+        Me.DefaultToolStripMenuItem.Checked = True
+        Me.DefaultToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.DefaultToolStripMenuItem.Name = "DefaultToolStripMenuItem"
+        Me.DefaultToolStripMenuItem.Size = New System.Drawing.Size(112, 22)
+        Me.DefaultToolStripMenuItem.Text = "Default"
+        Me.DefaultToolStripMenuItem.Visible = False
+        '
+        'CompanyToolStripMenuItem
+        '
+        Me.CompanyToolStripMenuItem.Name = "CompanyToolStripMenuItem"
+        Me.CompanyToolStripMenuItem.Size = New System.Drawing.Size(126, 22)
+        Me.CompanyToolStripMenuItem.Text = "Company"
         '
         'GroupBox1
         '
@@ -853,27 +894,16 @@ Partial Class Form1
         '
         'GroupBox4
         '
-        Me.GroupBox4.Controls.Add(Me.BUTTON_SPARE)
         Me.GroupBox4.Controls.Add(Me.BUTTON_CANCEL)
         Me.GroupBox4.Controls.Add(Me.BUTTON_RECEIPT)
         Me.GroupBox4.Controls.Add(Me.Label4)
+        Me.GroupBox4.Controls.Add(Me.Button5)
         Me.GroupBox4.Location = New System.Drawing.Point(16, 309)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(235, 154)
         Me.GroupBox4.TabIndex = 88
         Me.GroupBox4.TabStop = False
         Me.GroupBox4.Text = "Step 4"
-        '
-        'BUTTON_SPARE
-        '
-        Me.BUTTON_SPARE.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.BUTTON_SPARE.Location = New System.Drawing.Point(52, 103)
-        Me.BUTTON_SPARE.Name = "BUTTON_SPARE"
-        Me.BUTTON_SPARE.Size = New System.Drawing.Size(121, 40)
-        Me.BUTTON_SPARE.TabIndex = 4
-        Me.BUTTON_SPARE.Text = "BUTTON_SPARE"
-        Me.BUTTON_SPARE.UseVisualStyleBackColor = False
-        Me.BUTTON_SPARE.Visible = False
         '
         'BUTTON_CANCEL
         '
@@ -904,8 +934,28 @@ Partial Class Form1
         Me.Label4.TabIndex = 0
         Me.Label4.Text = "Control"
         '
+        'Button5
+        '
+        Me.Button5.BackColor = System.Drawing.SystemColors.ControlDark
+        Me.Button5.Location = New System.Drawing.Point(52, 103)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(121, 40)
+        Me.Button5.TabIndex = 5
+        Me.Button5.Text = "PRINT"
+        Me.ToolTip1.SetToolTip(Me.Button5, "Print Outstanding")
+        Me.Button5.UseVisualStyleBackColor = False
+        Me.Button5.Visible = False
+        '
         'GroupBox5
         '
+        Me.GroupBox5.Controls.Add(Me.textAddress03)
+        Me.GroupBox5.Controls.Add(Me.textAddress02)
+        Me.GroupBox5.Controls.Add(Me.textContact)
+        Me.GroupBox5.Controls.Add(Me.textAddress01)
+        Me.GroupBox5.Controls.Add(Me.textCompanyName)
+        Me.GroupBox5.Controls.Add(Me.textSiteName)
+        Me.GroupBox5.Controls.Add(Me.textMachineName)
+        Me.GroupBox5.Controls.Add(Me.Label26)
         Me.GroupBox5.Controls.Add(Me.textSerialReceived)
         Me.GroupBox5.Controls.Add(Me.Label24)
         Me.GroupBox5.Location = New System.Drawing.Point(257, 309)
@@ -914,6 +964,87 @@ Partial Class Form1
         Me.GroupBox5.TabIndex = 89
         Me.GroupBox5.TabStop = False
         '
+        'textAddress03
+        '
+        Me.textAddress03.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textAddress03.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.textAddress03.Location = New System.Drawing.Point(226, 119)
+        Me.textAddress03.Name = "textAddress03"
+        Me.textAddress03.ReadOnly = True
+        Me.textAddress03.Size = New System.Drawing.Size(93, 20)
+        Me.textAddress03.TabIndex = 13
+        Me.textAddress03.Visible = False
+        '
+        'textAddress02
+        '
+        Me.textAddress02.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textAddress02.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.textAddress02.Location = New System.Drawing.Point(226, 98)
+        Me.textAddress02.Name = "textAddress02"
+        Me.textAddress02.ReadOnly = True
+        Me.textAddress02.Size = New System.Drawing.Size(93, 20)
+        Me.textAddress02.TabIndex = 12
+        Me.textAddress02.Visible = False
+        '
+        'textContact
+        '
+        Me.textContact.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textContact.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.textContact.Location = New System.Drawing.Point(62, 119)
+        Me.textContact.Name = "textContact"
+        Me.textContact.ReadOnly = True
+        Me.textContact.Size = New System.Drawing.Size(156, 20)
+        Me.textContact.TabIndex = 11
+        '
+        'textAddress01
+        '
+        Me.textAddress01.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textAddress01.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.textAddress01.Location = New System.Drawing.Point(62, 98)
+        Me.textAddress01.Name = "textAddress01"
+        Me.textAddress01.ReadOnly = True
+        Me.textAddress01.Size = New System.Drawing.Size(156, 20)
+        Me.textAddress01.TabIndex = 10
+        '
+        'textCompanyName
+        '
+        Me.textCompanyName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textCompanyName.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.textCompanyName.Location = New System.Drawing.Point(62, 77)
+        Me.textCompanyName.Name = "textCompanyName"
+        Me.textCompanyName.ReadOnly = True
+        Me.textCompanyName.Size = New System.Drawing.Size(156, 20)
+        Me.textCompanyName.TabIndex = 9
+        '
+        'textSiteName
+        '
+        Me.textSiteName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textSiteName.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.textSiteName.Location = New System.Drawing.Point(62, 56)
+        Me.textSiteName.Name = "textSiteName"
+        Me.textSiteName.ReadOnly = True
+        Me.textSiteName.Size = New System.Drawing.Size(156, 20)
+        Me.textSiteName.TabIndex = 8
+        '
+        'textMachineName
+        '
+        Me.textMachineName.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.textMachineName.ForeColor = System.Drawing.SystemColors.MenuHighlight
+        Me.textMachineName.Location = New System.Drawing.Point(62, 35)
+        Me.textMachineName.Name = "textMachineName"
+        Me.textMachineName.ReadOnly = True
+        Me.textMachineName.Size = New System.Drawing.Size(156, 20)
+        Me.textMachineName.TabIndex = 7
+        '
+        'Label26
+        '
+        Me.Label26.AutoSize = True
+        Me.Label26.Location = New System.Drawing.Point(6, 38)
+        Me.Label26.Name = "Label26"
+        Me.Label26.Size = New System.Drawing.Size(25, 13)
+        Me.Label26.TabIndex = 6
+        Me.Label26.Text = "Site"
+        '
         'textSerialReceived
         '
         Me.textSerialReceived.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -921,7 +1052,7 @@ Partial Class Form1
         Me.textSerialReceived.Location = New System.Drawing.Point(62, 11)
         Me.textSerialReceived.Name = "textSerialReceived"
         Me.textSerialReceived.ReadOnly = True
-        Me.textSerialReceived.Size = New System.Drawing.Size(128, 20)
+        Me.textSerialReceived.Size = New System.Drawing.Size(156, 20)
         Me.textSerialReceived.TabIndex = 3
         '
         'Label24
@@ -1152,7 +1283,6 @@ Partial Class Form1
     Friend WithEvents BUTTON_CANCEL As System.Windows.Forms.Button
     Friend WithEvents BUTTON_RECEIPT As System.Windows.Forms.Button
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents BUTTON_SPARE As System.Windows.Forms.Button
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
     Friend WithEvents Panel3 As System.Windows.Forms.Panel
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
@@ -1210,4 +1340,17 @@ Partial Class Form1
     Friend WithEvents tmr_wsListen As System.Windows.Forms.Timer
     Friend WithEvents Button4 As System.Windows.Forms.Button
     Friend WithEvents TextCount As System.Windows.Forms.TextBox
+    Friend WithEvents WindowsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents PrinterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DefaultToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents Button5 As System.Windows.Forms.Button
+    Friend WithEvents CompanyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents textMachineName As System.Windows.Forms.TextBox
+    Friend WithEvents Label26 As System.Windows.Forms.Label
+    Friend WithEvents textCompanyName As System.Windows.Forms.TextBox
+    Friend WithEvents textSiteName As System.Windows.Forms.TextBox
+    Friend WithEvents textContact As System.Windows.Forms.TextBox
+    Friend WithEvents textAddress01 As System.Windows.Forms.TextBox
+    Friend WithEvents textAddress03 As System.Windows.Forms.TextBox
+    Friend WithEvents textAddress02 As System.Windows.Forms.TextBox
 End Class

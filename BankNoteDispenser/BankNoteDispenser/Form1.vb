@@ -1,11 +1,15 @@
 ﻿Imports System.Net.Sockets
 Imports System.Threading
 Imports System.Text
+Imports System.Drawing.Printing
 
 Public Class Form1
 
     Const ScreenTitle = "Arduino Bank Note Dispenser System"
 
+    Public currentOutstanding As Integer
+
+    '
     Public state As Integer = 0
     Public dataReceived As String  ' temp buffer
     Public isDataReceived As Boolean = False
@@ -16,7 +20,8 @@ Public Class Form1
     Public isDisplayStatus As Boolean = False
     Public isValidCommCommand As Boolean = False
     Public isWaitingToSend As Boolean = False
-
+    Public isWinSockCancel As Boolean = False
+    Public winSockReturn As Integer = 0
     ' ### WINSOCK CONTROL
     Public Enum WinsockStatuses
         ''' <summary>
@@ -64,9 +69,9 @@ Public Class Form1
     Const wsEndStringPhp As String = "F"
     Const wsPrintReceiptButton As String = "D"
     Const wsCancelButton As String = "E"
-    Const wsErrorMachine As String = "A"
+    Const wsErrorMachine As String = "B"
     Const wsEmptyMachine As String = "L"
-    Const wsOutstandingMachine As String = "V"
+    Const wsOutstandingMachine As String = "B"
     'Winsock1.LocalPort = 420
     'Read DI/DO     = @01
 
@@ -262,6 +267,12 @@ Public Class Form1
 
     Private Sub Form1_FormClosing(ByVal sender As Object, ByVal e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         closeComport()
+        Try
+            tcpClient.Close()
+            winsockStatus = WinsockStatuses.Closed
+        Catch ex As Exception
+
+        End Try
         Environment.Exit(1)
     End Sub
 
@@ -415,12 +426,57 @@ Public Class Form1
         ButtonSendSerial.Enabled = True
     End Sub
 
+    Private Sub MenuItemClicked(ByVal sender As System.Windows.Forms.ToolStripMenuItem, ByVal e As EventArgs)
+        Dim dataArray As String() = sender.Text.Split(" ")
+        For Each company As printHeader In listOfCompany
+            If company.MachineId = dataArray(0) And company.SiteName = dataArray(1) Then
+                textSiteName.Text = company.SiteName
+                textMachineName.Text = company.MachineId
+                textCompanyName.Text = company.CompanyName
+                textContact.Text = company.ContactNumber
+                textAddress01.Text = company.Address01
+                textAddress02.Text = company.Address02
+                textAddress03.Text = company.Address03
+            End If
+        Next
+    End Sub
+
+    Private Sub AddSubMenu()
+
+        Dim subItem As ToolStripMenuItem
+        Dim starter As Integer = 0
+        For Each company As printHeader In listOfCompany
+            subItem = New ToolStripMenuItem(company.MachineId & " " & company.SiteName)
+            CompanyToolStripMenuItem.DropDownItems.Add(subItem)
+            AddHandler subItem.Click, AddressOf MenuItemClicked
+            If starter = 0 Then
+                textSiteName.Text = company.SiteName
+                textMachineName.Text = company.MachineId
+                textCompanyName.Text = company.CompanyName
+                textContact.Text = company.ContactNumber
+                textAddress01.Text = company.Address01
+                textAddress02.Text = company.Address02
+                textAddress03.Text = company.Address03
+                ' do it for first record only
+                starter = starter + 1
+            End If
+        Next
+
+    End Sub
     Private Sub Form1_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        GetCompany()
+        ' add menu items
+        AddSubMenu()
         setComportMenu()
         tmr_status.Enabled = True
         isOpenDebugger = False
         Me.Width = 600
-        
+        ' default printer
+        Dim settings As New PrinterSettings
+        If String.IsNullOrEmpty(settings.PrinterName) = False Then
+            DefaultToolStripMenuItem.Text = settings.PrinterName
+            DefaultToolStripMenuItem.Visible = True
+        End If
     End Sub
 
     Private Sub BtnOpenCom_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnOpenCom.Click
@@ -611,8 +667,12 @@ Public Class Form1
                             'textAmtSlot01.Text = "0"
                             'textOSlot01.Text = "0"
                             textVSlot01.Text = Val(textVSlot01.Text) + Val(dataArray(2))
+                            currentOutstanding = Val(dataArray(2))
                             LogMessage(dataArray(2), dataArray(4))
                             AppendWinSockStatus(wsOutstandingMachine)
+                            ' print outstanding
+                            printOutstanding()
+
                         ElseIf dataArray(1) = "O" Then
                             textStatSlot01.Text = getMachineStatus(dataArray(1))
                             'textAmtSlot01.Text = "0"
@@ -658,7 +718,7 @@ Public Class Form1
                     isDataReceived = False ' process data onetime only
                     isValidCommCommand = False
                 End If
-                
+
         End Select
     End Sub
 
@@ -775,6 +835,9 @@ Public Class Form1
                 bytesRead = 0
                 bytesRead = clientStream.Read(message, 0, 4096) 'blocks until a client sends a message
                 receivedCount = receivedCount + 1
+                If receivedCount >= 1000 Then
+                    receivedCount = 0
+                End If
                 If bytesRead = 0 Then
                     Exit While 'the client has disconnected from the server
                 End If
@@ -832,9 +895,12 @@ Public Class Form1
         TextSendSerial.Text = input
         TextSendSerial.Enabled = False
         isSendSerialData = True
+
     End Sub
 
     Private Sub ProcessWinSockData(ByVal sData As String)
+        Dim retVal As String = String.Empty
+
         'isWaitingToSend 
         TextWinSockResp.Text = sData
         If sData = "btn_status" Then
@@ -847,26 +913,56 @@ Public Class Form1
         End If
         If sData = "GATEUP" Then
             ' do something
+        ElseIf sData.StartsWith("RM1:") Then
+            retVal = sData.Substring(4)
         ElseIf sData = "RL3_1" Then
-            WinSockSendSerial("1")
+            'WinSockSendSerial("0")
+            isWinSockCancel = True
         ElseIf sData = "RL3_0" Then
-            WinSockSendSerial("0")
+            'WinSockSendSerial("1")
+            winSockReturn = winSockReturn + 1
+            isWinSockCancel = True
         End If
         ' Payment as string
-        Dim paymentZeroChar As Integer = 48 ' character zero
-        Dim paymentReturn As Integer = 0
-        Dim paymentChar As Char
-        Try
-            paymentReturn = Val(sData)
-            If paymentReturn > 0 Then
-                paymentChar = Chr(paymentZeroChar + paymentReturn)
-                WinSockSendSerial(CStr(paymentChar))
-                ctext("Proceed dispenser: " & paymentReturn)
-            End If
-        Catch ex As Exception
-            paymentReturn = 0
-        End Try
+        If isWinSockCancel = True Then
+            isWinSockCancel = False
+        ElseIf isWinSockCancel = False And winSockReturn > 0 Then
+            Dim paymentZeroChar As Integer = 48 ' character zero
+            Dim paymentReturn As Integer = 0
+            Dim paymentChar As Char
+            Try
+                paymentReturn = winSockReturn
+                winSockReturn = 0 ' reset to zero
+                isWinSockCancel = False ' reset send
+                If paymentReturn > 0 Then
+                    paymentChar = Chr(paymentZeroChar + paymentReturn)
+                    WinSockSendSerial(CStr(paymentChar))
+                    LogLineMessage("Cancel and return at dispenser: " & paymentReturn)
+                End If
 
+            Catch ex As Exception
+                paymentReturn = 0
+            End Try
+        End If
+
+        If retVal = String.Empty Then
+            Exit Sub
+        Else
+            Dim paymentZeroChar As Integer = 48 ' character zero
+            Dim paymentReturn As Integer = 0
+            Dim paymentChar As Char
+            Try
+                paymentReturn = Val(retVal)
+                If paymentReturn > 0 Then
+                    paymentChar = Chr(paymentZeroChar + paymentReturn)
+                    WinSockSendSerial(CStr(paymentChar))
+                    LogLineMessage("Proceed dispenser: " & paymentReturn)
+                End If
+            Catch ex As Exception
+                paymentReturn = 0
+            End Try
+        End If
+        
     End Sub
 
     Private Sub tmr_wsListen_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tmr_wsListen.Tick
@@ -987,5 +1083,65 @@ Public Class Form1
     Private Sub bOSlot02_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bOSlot02.Click
         textOSlot02.Text = "0"
     End Sub
-    
+
+    Private Sub printOutstanding()
+        'Prints the desired text to the default printer using the default font
+        Dim printString As String
+        Dim invoiceNo As String
+        Dim currentDate As String = Now.ToString("yyyy-MM-dd HH:mm:ss")
+        invoiceNo = Invoice.GetInvoice() ' auto-increment
+
+        printString = ""
+        printString = printString & textMachineName.Text
+        printString = printString & vbNewLine
+        printString = printString & textCompanyName.Text
+        printString = printString & vbNewLine
+        printString = printString & textAddress01.Text
+        printString = printString & vbNewLine
+        printString = printString & textAddress02.Text
+        printString = printString & vbNewLine
+        printString = printString & textAddress03.Text
+        printString = printString & vbNewLine
+        printString = printString & textContact.Text
+        printString = printString & vbNewLine
+        printString = printString & textSiteName.Text
+        printString = printString & vbNewLine
+        printString = printString & vbNewLine
+        printString = printString & vbNewLine
+        printString = printString & "_________________________________________"
+        printString = printString & vbNewLine
+        printString = printString & vbNewLine
+        printString = printString & "VOUCHER NO  : " & invoiceNo
+        printString = printString & vbNewLine
+        printString = printString & "DATE IN             : " & currentDate
+        printString = printString & vbNewLine
+        printString = printString & "AMOUNT           : " & "RM " & currentOutstanding.ToString() & ".00"
+        printString = printString & vbNewLine
+        printString = printString & vbNewLine
+        printString = printString & vbNewLine
+        printString = printString & "Please proceed to counter to redempt your"
+        printString = printString & vbNewLine
+        printString = printString & "balance amount"
+        printString = printString & vbNewLine
+        printString = printString & vbNewLine
+        printString = printString & vbNewLine
+
+        defaultPrinter.Print(printString)
+        ' log
+        Dim logMessage As String
+        logMessage = "VOUCHER NO:" & invoiceNo & " with amount RM" & currentOutstanding.ToString() & ".00" & " at " & currentDate
+
+        Invoice.Log(textMachineName.Text & "," & textSiteName.Text & " > " & logMessage)
+        LogLineMessage(logMessage)
+    End Sub
+
+    Private Sub Button5_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button5.Click
+        printOutstanding()
+    End Sub
+
+    Private Sub WindowsToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles WindowsToolStripMenuItem.Click
+
+    End Sub
+
+
 End Class
