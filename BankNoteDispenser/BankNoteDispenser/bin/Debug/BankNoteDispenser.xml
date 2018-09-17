@@ -6,7 +6,35 @@ BankNoteDispenser
 </name>
 </assembly>
 <members>
-<member name="F:BankNoteDispenser.Form1.WinsockStatuses.Closed">
+<member name="M:BankNoteDispenser.defaultPrinter.Print(System.String)">
+	<summary>
+ Prints the desired text using the System's default Font.
+ </summary>
+	<param name="text">The text to print.</param>
+	<remarks>The text will automatically word wrap and it prints to the default printer.</remarks>
+</member><member name="M:BankNoteDispenser.defaultPrinter.Print(System.String,System.Drawing.Font)">
+	<summary>
+ Prints the desired text using specified Font.
+ </summary>
+	<param name="text">The text to print.</param>
+	<param name="font">The font to use while printing.</param>
+	<remarks>The text will automatically word wrap and it prints to the default printer.</remarks>
+</member><member name="M:BankNoteDispenser.defaultPrinter.Print(System.String,System.String)">
+	<summary>
+ Prints the desired text using the System's default Font to the specified printer.
+ </summary>
+	<param name="text">The text to print.</param>
+	<param name="printerName">The name of the printer to print to.</param>
+	<remarks>The text will automatically word wrap. The printer name should be verfied that it is contained in PrinterSettings.InstalledPrinters</remarks>
+</member><member name="M:BankNoteDispenser.defaultPrinter.Print(System.String,System.Drawing.Font,System.String)">
+	<summary>
+ Prints the desired text using the specified Font to the specified printer.
+ </summary>
+	<param name="text">The text to print.</param>
+	<param name="font">The font to use while printing.</param>
+	<param name="printerName">The name of the printer to print to.</param>
+	<remarks>The text will automatically word wrap. The printer name should be verfied that it is contained in PrinterSettings.InstalledPrinters</remarks>
+</member><member name="F:BankNoteDispenser.Form1.WinsockStatuses.Closed">
 	<summary>
  The Winsock is closed.
  </summary>
