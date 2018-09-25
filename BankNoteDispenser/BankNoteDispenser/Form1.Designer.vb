@@ -1179,11 +1179,10 @@ Partial Class Form1
         '
         'tmr_winsock
         '
-        Me.tmr_winsock.Interval = 50
+        Me.tmr_winsock.Interval = 200
         '
         'tmr_wsListen
         '
-        Me.tmr_wsListen.Interval = 10
         '
         'Form1
         '
