@@ -64,7 +64,7 @@ Public Class Form1
     Public winsockStatus As WinsockStatuses = WinsockStatuses.Closed
     Public winsockBuffer As String
     Public winsockBufferReady As Boolean = False
-    Public winsockInterval As Integer = 0
+
     ' ### Winsock Client and Server communication protocol ###
     Const wsEndStringPhp As String = "F"
     Const wsPrintReceiptButton As String = "D"
@@ -886,13 +886,8 @@ Public Class Form1
             TextWinsockReady.Text = TextWinsockPending.Text
             TextWinsockPending.Text = ""
         Else
-            If winsockInterval >= 10 Then    ' send response every tmr_winsock.interval x 10 = 2000 milliseconds/ 2 seconds
-                Winsock_Send(wsEndStringPhp) 'each message is end with "F", user-defined protocol
-                TextWinsockReady.Text = wsEndStringPhp
-                winsockInterval = 0
-            Else
-                winsockInterval = winsockInterval + 1
-            End If
+            Winsock_Send(wsEndStringPhp) 'each message is end with "F", user-defined protocol
+            TextWinsockReady.Text = wsEndStringPhp
         End If
     End Sub
 
