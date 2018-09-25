@@ -886,8 +886,13 @@ Public Class Form1
             TextWinsockReady.Text = TextWinsockPending.Text
             TextWinsockPending.Text = ""
         Else
-            Winsock_Send(wsEndStringPhp) 'each message is end with "F", user-defined protocol
-            TextWinsockReady.Text = wsEndStringPhp
+            If winsockInterval >= 10 Then    ' send response every tmr_winsock.interval x 10 = 2000 milliseconds/ 2 seconds
+                Winsock_Send(wsEndStringPhp) 'each message is end with "F", user-defined protocol
+                TextWinsockReady.Text = wsEndStringPhp
+                winsockInterval = 0
+            Else
+                winsockInterval = winsockInterval + 1
+            End If
         End If
     End Sub
 
@@ -1012,18 +1017,8 @@ Public Class Form1
         ' nothing to send then close winsock
         If winsockStatus = WinsockStatuses.Connected Then
             If isWaitingToSend Then
-                If TextWinsockPending.Text <> "" Then
-                    SendWinSockData()
-                    isWaitingToSend = False
-                Else
-                    If winsockInterval >= 10 Then    ' send response every tmr_winsock.interval x 10 = 2000 milliseconds/ 2 seconds
-                        SendWinSockData()
-                        isWaitingToSend = False
-                        winsockInterval = 0
-                    Else
-                        winsockInterval = winsockInterval + 1
-                    End If
-                End If
+                SendWinSockData()
+                isWaitingToSend = False
             Else
                 winsockStatus = WinsockStatuses.Closing
             End If
