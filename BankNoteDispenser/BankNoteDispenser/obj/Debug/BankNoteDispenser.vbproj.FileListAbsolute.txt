@@ -34,3 +34,17 @@ C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\De
 C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.application
 C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.exe.manifest
 C:\Users\Taurus\Documents\github\bank\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.application
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.exe
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.xml
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.pdb
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.exe.manifest
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.application
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.exe
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.pdb
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\bin\Debug\BankNoteDispenser.xml
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Form1.resources
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.Resources.resources
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.vbproj.GenerateResource.Cache
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.exe.manifest
+C:\Users\charl\OneDrive\Desktop\Taurus\BankNoteVB\BankNoteDispenser\BankNoteDispenser\obj\Debug\BankNoteDispenser.application

@@ -64,6 +64,9 @@ Public Class Form1
     Public winsockStatus As WinsockStatuses = WinsockStatuses.Closed
     Public winsockBuffer As String
     Public winsockBufferReady As Boolean = False
+    Public winsockInterval As Integer = 0
+    Public winSockReceived As String = String.Empty
+    Public isWinSockGateUp As Boolean = False
 
     ' ### Winsock Client and Server communication protocol ###
     Const wsEndStringPhp As String = "F"
@@ -846,6 +849,22 @@ Public Class Form1
                 ' Remove line feed
                 winsockBuffer = System.Text.Encoding.ASCII.GetString(message).Substring(0, bytesRead).Replace(Chr(10), "").Replace(Chr(13), "").TrimEnd
                 winsockBufferReady = True
+
+                ' CAPTURE PRECISE DATA
+                If winsockBuffer = "GATEUP" Then
+                    ' do something
+                    isWinSockGateUp = True
+                ElseIf winsockBuffer.StartsWith("RM1:") Then
+                    winSockReceived = winsockBuffer.Substring(4)
+                ElseIf winsockBuffer = "RL3_1" Then
+                    'WinSockSendSerial("0")
+                    isWinSockCancel = True
+                ElseIf winsockBuffer = "RL3_0" Then
+                    'WinSockSendSerial("1")
+                    winSockReturn = winSockReturn + 1
+                    isWinSockCancel = True
+                End If
+
                 If winsockStatus <> WinsockStatuses.Connected Or winsockStatus <> WinsockStatuses.Connecting Then
                     ' break loop if no longer in connect mode
                     ' allow listening (connecting without client/server, broadcasting)
@@ -886,8 +905,14 @@ Public Class Form1
             TextWinsockReady.Text = TextWinsockPending.Text
             TextWinsockPending.Text = ""
         Else
-            Winsock_Send(wsEndStringPhp) 'each message is end with "F", user-defined protocol
-            TextWinsockReady.Text = wsEndStringPhp
+            If winsockInterval >= 10 Then    ' send response every tmr_winsock.interval x 10 = 2000 milliseconds/ 2 seconds
+                Winsock_Send(wsEndStringPhp) 'each message is end with "F", user-defined protocol
+                TextWinsockReady.Text = wsEndStringPhp
+                winsockInterval = 0
+            Else
+                winsockInterval = winsockInterval + 1
+            End If
+
         End If
     End Sub
 
@@ -899,7 +924,7 @@ Public Class Form1
     End Sub
 
     Private Sub ProcessWinSockData(ByVal sData As String)
-        Dim retVal As String = String.Empty
+        'Dim retVal As String = String.Empty
 
         'isWaitingToSend 
         TextWinSockResp.Text = sData
@@ -911,18 +936,7 @@ Public Class Form1
                 LogLineMessage("AUTOPAY REQUEST : " & sData)
             End If
         End If
-        If sData = "GATEUP" Then
-            ' do something
-        ElseIf sData.StartsWith("RM1:") Then
-            retVal = sData.Substring(4)
-        ElseIf sData = "RL3_1" Then
-            'WinSockSendSerial("0")
-            isWinSockCancel = True
-        ElseIf sData = "RL3_0" Then
-            'WinSockSendSerial("1")
-            winSockReturn = winSockReturn + 1
-            isWinSockCancel = True
-        End If
+        ' CAPTURE PRECISE DATA - HandleClientComm()
         ' Payment as string
         If isWinSockCancel = True Then
             isWinSockCancel = False
@@ -945,14 +959,20 @@ Public Class Form1
             End Try
         End If
 
-        If retVal = String.Empty Then
+        If isWinSockGateUp = True Then
+            ' Gate up , do something
+            LogLineMessage("GATE UP: Done")
+            isWinSockGateUp = False
+        End If
+
+        If winSockReceived = String.Empty Then
             Exit Sub
         Else
             Dim paymentZeroChar As Integer = 48 ' character zero
             Dim paymentReturn As Integer = 0
             Dim paymentChar As Char
             Try
-                paymentReturn = Val(retVal)
+                paymentReturn = Val(winSockReceived)
                 If paymentReturn > 0 Then
                     paymentChar = Chr(paymentZeroChar + paymentReturn)
                     WinSockSendSerial(CStr(paymentChar))
@@ -961,6 +981,9 @@ Public Class Form1
             Catch ex As Exception
                 paymentReturn = 0
             End Try
+
+            winSockReceived = String.Empty
+
         End If
         
     End Sub
